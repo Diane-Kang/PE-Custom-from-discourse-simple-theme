@@ -1,0 +1,189 @@
+<!-- Registration Form -->
+<script>
+    currentLocation = window.location;
+    pathname = window.location.pathname;
+    const target_urlParams = ["/signup/"];
+    queryString = currentLocation.search;
+    urlParams = new URLSearchParams(queryString);
+    user_group = urlParams.get('group')
+    const target_urserGroup = ["company", "embassy"];
+
+    var button_next = document.createElement("button");
+    button_next.classList.add("next-button","btn-large", "btn-primary", "btn", "btn-text");
+    button_next.textContent = "next";
+    button_next.setAttribute("index", 1);
+    
+
+
+waitForElm('.create-account-body').then((elm)=>{
+    
+    wrapper = document.querySelector(".modal-inner-container");
+    // Not allow the registration thrugh unknown way
+    if(!( target_urlParams.includes(pathname) && target_urserGroup.includes(user_group)) ){
+        wrapper.classList.add("no-signup");
+        document.querySelector(".login-subheader").innerHTML = "To register, you need another link.";
+    }
+    else if(target_urlParams.includes(pathname)){
+        wrapper.classList.add("signup");
+        if(user_group == 'company'){
+          wrapper.classList.add('company');
+        }  
+        else if(user_group == 'embassy'){
+            console.log("?");
+          wrapper.classList.add('embassy');
+        }
+        
+        document.querySelector(".user-field-user-group").parentNode.classList.add("show");
+        let el = document.querySelector(".user-field-user-group input")
+        el.focus()
+        document.execCommand('insertText', false, user_group)
+        document.querySelector(".user-field-user-group").parentNode.classList.remove("show");
+        
+        document.querySelector(".user-field-first-name").parentNode.classList.add("show");
+        document.querySelector(".user-field-last-name").parentNode.classList.add("show");
+        document.querySelector(".user-field-organization").parentNode.classList.add("show");
+        button_next.addEventListener('click', show_inputs, false);
+        document.querySelector(".login-form").appendChild(button_next);
+        document.querySelector(".modal-footer span.d-button-label").addEventListener('click', show_all_inputs, false);
+    }
+
+
+});
+
+
+function show_all_inputs(){
+    let inputs = document.getElementsByClassName("input-group");
+    for (let i = 0; i < inputs.length; i++) {
+        inputs[i].classList.remove("show");
+        inputs[i].classList.add("show");
+    }
+    // User group should not editable by user 
+    document.querySelector(".user-field-user-group").parentNode.classList.remove("show");
+}
+
+function show_inputs(evt){
+    let index = evt.currentTarget.getAttribute("index");
+    index++;
+    console.log(evt.currentTarget.getAttribute("index"));
+    evt.currentTarget.setAttribute("index", index);
+    let inputs = document.getElementsByClassName("input-group");
+    for (let i = 0; i < inputs.length; i++) {
+        inputs[i].classList.remove("show");
+    }
+    switch(index) {
+        case 1:
+            document.querySelector(".user-field-first-name").parentNode.classList.add("show");
+            document.querySelector(".user-field-last-name").parentNode.classList.add("show");
+            document.querySelector(".user-field-organization").parentNode.classList.add("show");
+            break;
+        case 2:
+            document.querySelector(".user-field-country").parentNode.classList.add("show");
+            document.querySelector(".user-field-job-title").parentNode.classList.add("show");
+            document.querySelector(".input-group.create-account-email").classList.add("show");
+            break;
+        case 3:
+            document.querySelector(".input-group.create-account__username").classList.add("show");
+            document.querySelector(".input-group.create-account__password").classList.add("show");
+            document.querySelector(".modal-footer").classList.add("show");
+            button_next.style.display="none";
+            break; 
+        default:
+        // code block
+    }
+}
+
+function waitForElm(selector) {
+    return new Promise(resolve => {
+        if (document.querySelector(selector)) {
+            return resolve(document.querySelector(selector));
+        }
+
+        const observer = new MutationObserver(mutations => {
+            if (document.querySelector(selector)) {
+                resolve(document.querySelector(selector));
+                // observer.disconnect();
+            }
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    });
+}
+    </script>
+
+<!-- https://meta.discourse.org/t/ability-to-add-a-custom-section-of-links-to-the-sidebar/239778/12 -->
+<!-- Side bar Custom Link-->
+<script>
+  let logo = `<path id="XMLID_224_" d="M325.606,229.393l-150.004-150C172.79,76.58,168.974,75,164.996,75c-3.979,0-7.794,1.581-10.607,4.394
+	l-149.996,150c-5.858,5.858-5.858,15.355,0,21.213c5.857,5.857,15.355,5.858,21.213,0l139.39-139.393l139.397,139.393
+	C307.322,253.536,311.161,255,315,255c3.839,0,7.678-1.464,10.607-4.394C331.464,244.748,331.464,235.251,325.606,229.393z"/>`;
+  const div = document.createElement("div")
+  div.className = "sidebar-section-link-wrapper"
+  div.innerHTML = `
+            <a href="/w/anfrage-einreichen" class="sidebar-section-link sidebar-section-link-everything sidebar-row">
+              <span class="sidebar-section-link-prefix icon">
+              </span>
+              <span class="sidebar-section-link-content-text"> New Event </span>
+            </a>
+      `
+
+  const customHeader = document.createElement("div")
+  customHeader.className = "sidebar-section-wrapper sidebar-section-community"
+  customHeader.innerHTML = `
+            <div class="sidebar-section-header-wrapper sidebar-row">
+              <button id="ember11" class="sidebar-section-header sidebar-section-header-collapsable btn-flat btn no-text" type="button">
+                <span class="sidebar-section-header-text"> Custom Links </span>
+              </button>
+          </div>
+          <div class="sidebar-section-content" id="customNavigation"/>
+      `
+
+  $(document).ready(function () {
+    // Create the links
+    const links = [
+      { title: "New Event", src: "/w/anfrage-einreichen", svg: logo, viewbox: "0 0 100 100" }
+    ]
+
+    // Mobile
+    let hamburger = document.getElementById("toggle-hamburger-menu")
+    if (hamburger) {
+      hamburger.addEventListener("click", addCustomLinks)
+    } else {
+      addCustomLinks()
+    }
+    
+    let bool = false;
+    function addCustomLinks() {
+      setTimeout(function () {
+        // Force to wait until navigation has been loaded
+        const sidebar = document.getElementsByClassName("sidebar-sections")[0]
+        if (sidebar) {
+          sidebar.prepend(customHeader)
+          if (bool) return;
+          // Get the customNav Id
+          const customNavigation = document.getElementById("customNavigation")
+          if (customNavigation) {
+            links.filter(function (link) {
+              let linkDiv = document.createElement("div")
+              linkDiv.className = "sidebar-section-link-wrapper"
+              linkDiv.innerHTML = `<a href="${link.src}" class="sidebar-section-link sidebar-section-link-everything sidebar-row ember-view">
+                        <span class="sidebar-section-link-prefix icon" id="link_${link.title}"></span>
+                        <span class="sidebar-section-link-content-text"> ${link.title} </span>
+                    </a>
+                  `
+              customNavigation.append(linkDiv)
+              let linkIcon = document.getElementById("link_" + link.title)
+              if (linkIcon && link.svg) {
+                linkIcon.innerHTML = `<svg viewBox="${link.viewbox}" class="logoIcon" xmlns="http://www.w3.org/2000/svg"> ${link.svg}</svg>`
+              }
+            })
+          }
+        }
+        bool = true
+      }, 0)
+      
+    }
+  })
+</script>
