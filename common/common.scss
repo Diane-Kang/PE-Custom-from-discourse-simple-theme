@@ -1,0 +1,28 @@
+
+.modal-inner-container.no-signup .create-account-form > div:not(:first-child){
+    display:none;
+}
+
+.modal-inner-container.company  .user-field-organization .instructions span:not(.company), 
+.modal-inner-container.embassy .user-field-organization .instructions span:not(.embassy){
+    display:none;
+}
+
+.modal-inner-container.signup .modal-footer{
+    display:none;
+}
+.modal-inner-container.signup .modal-footer.show{
+    display:block;
+}
+
+.modal-inner-container.signup .create-account-form .login-form .input-group{
+    display:none;
+}
+.modal-inner-container.signup .create-account-form .login-form .input-group.show{
+    display:block;
+}
+
+.modal-inner-container.signup .login-form button.next-button{
+    display:block;
+    margin: 0.2em 0.3em 0.2em auto;
+}
