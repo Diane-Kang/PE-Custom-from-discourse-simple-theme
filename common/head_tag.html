@@ -1,10 +1,23 @@
-<!-- Registration Form -->
 <script>
     currentLocation = window.location;
     pathname = window.location.pathname;
-    const target_urlParams = ["/signup/"];
     queryString = currentLocation.search;
     urlParams = new URLSearchParams(queryString);
+</script>
+
+<!-- Thank You Alert After Form Completion -->
+<script>
+    let message = urlParams.get('message');
+    if(message == "thankyou"){
+	    alert("Thankyou");
+    }
+</script>
+
+	
+<!-- Registration Form -->
+<script>
+    const target_urlParams = ["/signup/"];
+    
     user_group = urlParams.get('group')
     const target_urserGroup = ["company", "embassy"];
 
