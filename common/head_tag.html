@@ -153,6 +153,11 @@ function waitForElm(selector) {
     } else {
       addCustomLinks()
     }
+    let sideToggle = document.querySelector(".btn-sidebar-toggle");
+    if (sideToggle) {
+      console.log("HEYL");
+      sideToggle.addEventListener("click", addCustomLinks)
+    } 
     
     let bool = false;
     function addCustomLinks() {
