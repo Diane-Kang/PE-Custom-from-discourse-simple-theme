@@ -1,16 +1,19 @@
 
+// ---- Registration Fomular Functionality-------//
+// Do not show signup fomular, If the visitor comes to /signup without proper parameter,
 .modal-inner-container.no-signup .create-account-form > div:not(:first-child){
     display:none;
 }
-
+// To show different Content depends on the user group
 .modal-inner-container.company  .user-field-organization .instructions span:not(.company), 
 .modal-inner-container.embassy .user-field-organization .instructions span:not(.embassy){
     display:none;
 }
-
+// First, display Signup button disable
 .modal-inner-container.signup .modal-footer{
     display:none;
 }
+// At the proper Stage, show Singup Butoon 
 .modal-inner-container.signup .modal-footer.show{
     display:block;
 }
@@ -31,6 +34,9 @@
 body.custom-wizard .d-header-wrap .d-header{
     display:flex;
 }
+
+// ---- Registration Fomular Design-------//
+
 
 
 // --------- Formualr----------//
