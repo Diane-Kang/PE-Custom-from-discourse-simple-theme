@@ -31,3 +31,33 @@
 body.custom-wizard .d-header-wrap .d-header{
     display:flex;
 }
+
+
+// --------- Formualr----------//
+// General
+body.custom-wizard {
+  font-size: 1rem;
+}
+// Fomular Title 
+body.custom-wizard .wizard-column h1.wizard-step-title p{
+    font-size:20px;
+    margin-bottom:20px;
+}
+// Group title
+body.custom-wizard .wizard-field.text-only-field{
+    font-size:16px;
+    border-top: solid 1px #DDDDDD;
+    padding-top:20px;
+}
+// Rest
+body.custom-wizard .wizard-field{
+    font-size:14px;
+}
+body.custom-wizard input.date-picker, 
+body.custom-wizard .d-time-input .select-kit.combo-box .select-kit-header{
+    font-size:14px;
+}
+
+body.custom-wizard .wizard-field .field-label p{
+    margin:0;
+}
