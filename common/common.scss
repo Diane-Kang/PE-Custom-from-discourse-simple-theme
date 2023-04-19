@@ -49,6 +49,11 @@ body.custom-wizard .wizard-field.text-only-field{
     border-top: solid 1px #DDDDDD;
     padding-top:20px;
 }
+// Group seperator 
+body.custom-wizard .wizard-field.step_1_field_6 {
+  padding-top: 20px;
+  border-top: solid 1px #DDD;
+}
 // Rest
 body.custom-wizard .wizard-field{
     font-size:14px;
