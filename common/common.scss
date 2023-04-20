@@ -51,7 +51,6 @@ body.custom-wizard .wizard-column h1.wizard-step-title p{
 // Group title
 body.custom-wizard .wizard-field.text-only-field{
     font-size:16px;
-    font-weight: 800;
     border-top: solid 1px #DDDDDD;
     padding-top:20px;
 }
@@ -68,7 +67,7 @@ body.custom-wizard input.date-picker,
 body.custom-wizard .d-time-input .select-kit.combo-box .select-kit-header{
     font-size:14px;
 }
-body.custom-wizard .wizard-field .field-label{
+body.custom-wizard .wizard-field:not(.text-only-field) .field-label{
     font-weight: 400;
 }
 body.custom-wizard .wizard-field .field-label p{
